@@ -1,0 +1,18 @@
+{
+  "target": "dev",
+  "db": {
+    "dsn":"postgresql://postgres:1988lm@localhost/tpthink",
+    "conn_limit": 5,
+    "name": "my_db",
+    "tables": [
+      {
+        "name": "customer",
+        "cols": [
+          {"name":"id", "type":"bigserial", "length":-1, "des":"PRIMARY KEY", "escape":false},
+          {"name":"username", "type":"varchar", "length":80, "des":"not null", "escape":true},
+          {"name":"password", "type":"varchar", "length":80, "des":"not null", "escape":true}
+        ]
+      }
+    ]
+  }
+}
