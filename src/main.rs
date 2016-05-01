@@ -93,8 +93,10 @@ fn main() {
     });
     
     let conn = my_db.get_connection().unwrap();
+
+    let db = DataBase::new_with_limit(1);
     let _ = stream(conn, "select * from customer", move |json| {
-        //let rst = my_db.execute("select * from customer");
+        let rst = db.execute("select * from customer");
         println!("{}", json);
         true
     });

@@ -297,6 +297,24 @@ impl DataBase {
             dc:dc,
         }
     }
+
+    //create a database instance with connection limit
+    pub fn new_with_limit(limit:u32) -> DataBase
+    {
+        info!(target:"main", "{}", CFG.get_data());
+        let dsn = cfg_str!("db", "dsn");
+        let name = cfg_str!("db", "name");
+        let pool:MyDbPool = MyDbPool::new(dsn, limit);
+        let dc = Arc::new(pool);
+    
+        let table_list = DataBase::get_tables_from_cfg(dc.clone());
+        DataBase {
+            name:name.to_string(),
+            table_list:table_list,
+            dc:dc,
+        }
+    }
+
     
     //get the table define from the cfg file
     fn get_tables_from_cfg(dc:Arc<MyDbPool>) -> BTreeMap<String, Table<MyDbPool>> {
